@@ -28,8 +28,11 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run program
+      env:
+          SHIFT_USER: ${{ secrets.SHIFT_USER }}
+          SHIFT_PASS: ${{ secrets.SHIFT_PASS }}
       run: |
-        ./auto.py --platform epic steam xboxlive --user SHIFT_USER --pass SHIFT_PASS
+        ./auto.py --game bl3 blps bl2 bl1 --platform epic steam xboxlive --user $SHIFT_USER --pass $SHIFT_PASS
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
